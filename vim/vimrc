@@ -1,0 +1,57 @@
+syntax enable          " enable sytnax highlighting
+filetype on            " turn on filetype detection
+colorscheme gruvbox    " use funky gruvbox colors
+
+set background=dark    " set the UI to a dark background
+set number             " show line numbers
+set colorcolumn=80     " draw a divider at the 80th column
+set showcmd            " show command in bottom bar
+set cursorline         " highlight current line
+set wildmenu           " visual autocomplete for menu command
+
+set tabstop=4          " number of visual spaces per tab
+set softtabstop=4      " number of spaces in tab when editing
+set expandtab          " tabs are spaces
+set shiftwidth=4       " set number of columns shifted by `shift >`
+set lazyredraw         " redraw screen only when needed
+set showmatch          " highlight matching [{()}]
+set backspace=2
+
+set incsearch          " search as characters are entered
+set hlsearch           " highlight search matches
+
+set clipboard=unnamed  " alias the anonymous register to * register
+set noswapfile         " do not use a swapfile for the buffer
+set nobackup           " do not make a backup before overwriting a file
+
+let mapleader=","      " set the leader to be comma
+
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+"############################
+"""""""""Plugins"""""""""""""
+"############################
+" set the runtimepath to include vundle
+set runtimepath+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'airblade/vim-gitgutter'
+call vundle#end()
+
+" turn on filetype-specific indentation (must be called after Vundle)
+filetype plugin indent on 
+
+"############################
+"""""""""Spell Check"""""""""
+"############################
+" turn on spell check for markdown files
+autocmd BufRead,BufNewFile *.md setlocal spell
+set spellfile=~/.vim/spellfile.add
+set spelllang=en
+hi SpellBad ctermbg=224
