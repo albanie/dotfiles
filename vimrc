@@ -14,7 +14,6 @@ set softtabstop=4      " number of spaces in tab when editing
 set expandtab          " tabs are spaces
 set shiftwidth=4       " set number of columns shifted by `shift >`
 set lazyredraw         " redraw screen only when needed
-set showmatch          " highlight matching [{()}]
 set backspace=2
 
 set incsearch          " search as characters are entered
@@ -25,6 +24,8 @@ set noswapfile         " do not use a swapfile for the buffer
 set nobackup           " do not make a backup before overwriting a file
 
 let mapleader=","      " set the leader to be comma
+
+autocmd Filetype html setlocal ts=2 sts=2 sw=2 " html-specific indentation
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -42,6 +43,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'henrik/vim-indexed-search'
 call vundle#end()
 
 " turn on filetype-specific indentation (must be called after Vundle)
@@ -55,3 +57,8 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 set spellfile=~/.vim/spellfile.add
 set spelllang=en
 hi SpellBad ctermbg=224
+
+" local-remote copy and paste 
+vnoremap y y:call system("pbcopy", getreg("\""))<CR>
+"vnoremap <leader>y y:call system("pbcopy", getreg("\""))<CR>
+"noremap <silent> <leader>y :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR> 
