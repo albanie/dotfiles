@@ -1,5 +1,5 @@
 syntax enable          " enable sytnax highlighting
-filetype on            " turn on filetype detection
+filetype off            " turn on filetype detection
 colorscheme gruvbox    " use funky gruvbox colors
 
 set background=dark    " set the UI to a dark background
@@ -43,7 +43,10 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'shime/vim-livedown'
 Plugin 'henrik/vim-indexed-search'
+Plugin 'uarun/vim-protobuf'
+Plugin 'chiphogg/vim-prototxt'
 call vundle#end()
 
 " turn on filetype-specific indentation (must be called after Vundle)
@@ -60,5 +63,3 @@ hi SpellBad ctermbg=224
 
 " local-remote copy and paste 
 vnoremap y y:call system("pbcopy", getreg("\""))<CR>
-"vnoremap <leader>y y:call system("pbcopy", getreg("\""))<CR>
-"noremap <silent> <leader>y :<CR>:let @a=@" \| execute "normal! vgvy" \| let res=system("pbcopy", @") \| let @"=@a<CR> 
