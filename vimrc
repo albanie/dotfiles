@@ -22,6 +22,7 @@ set hlsearch           " highlight search matches
 set clipboard=unnamed  " alias the anonymous register to * register
 set noswapfile         " do not use a swapfile for the buffer
 set nobackup           " do not make a backup before overwriting a file
+set tags=tags;         " ctags
 
 let mapleader=","      " set the leader to be comma
 
@@ -42,20 +43,26 @@ set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-eunuch'
 Plugin 'shime/vim-livedown'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'uarun/vim-protobuf'
 Plugin 'chiphogg/vim-prototxt'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'severin-lemaignan/vim-minimap'
+"Plugin 'airblade/vim-gitgutter' useful for small files only
 call vundle#end()
 
 " turn on filetype-specific indentation (must be called after Vundle)
 filetype plugin indent on 
 
 "############################
-"""""""""Spell Check"""""""""
+""""""""""Spell Check"""""""""
 "############################
-" turn on spell check for markdown files
+"" turn on spell check for markdown files
 autocmd BufRead,BufNewFile *.md setlocal spell
 set spellfile=~/.vim/spellfile.add
 set spelllang=en
@@ -63,3 +70,8 @@ hi SpellBad ctermbg=224
 
 " local-remote copy and paste 
 vnoremap y y:call system("pbcopy", getreg("\""))<CR>
+"
+let g:vim_markdown_folding_disabled = 1
+"
+" " Ignore filetypes (for ctrl-p)
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o
