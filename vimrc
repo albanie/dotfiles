@@ -1,7 +1,6 @@
 syntax enable          " enable sytnax highlighting
 filetype off            " turn on filetype detection
 colorscheme gruvbox    " use funky gruvbox colors
-
 set background=dark    " set the UI to a dark background
 set number             " show line numbers
 set colorcolumn=80     " draw a divider at the 80th column
@@ -27,6 +26,7 @@ set tags=tags;         " ctags
 let mapleader=","      " set the leader to be comma
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 " html-specific indentation
+autocmd Filetype matlab setlocal ts=2 sts=2 sw=2 " matlab-specific indentation
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -35,7 +35,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <leader>u :GundoToggle<CR>
 
 "############################
-"""""""""Plugins"""""""""""""
+"          Plugins             
 "############################
 " set the runtimepath to include vundle
 set runtimepath+=~/.vim/bundle/Vundle.vim
@@ -52,7 +52,9 @@ Plugin 'chiphogg/vim-prototxt'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'scrooloose/syntastic'
+
+"Plugin 'severin-lemaignan/vim-minimap'
 "Plugin 'airblade/vim-gitgutter' useful for small files only
 call vundle#end()
 
@@ -60,7 +62,21 @@ call vundle#end()
 filetype plugin indent on 
 
 "############################
-""""""""""Spell Check"""""""""
+"         Syntastic         
+"############################
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_python_pylint_exec = '/users/albanie/local/anaconda/bin/pyflakes'
+
+"############################
+"         Spell Check        
 "############################
 "" turn on spell check for markdown files
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -75,3 +91,4 @@ let g:vim_markdown_folding_disabled = 1
 "
 " " Ignore filetypes (for ctrl-p)
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o
+
