@@ -23,10 +23,13 @@ set noswapfile         " do not use a swapfile for the buffer
 set nobackup           " do not make a backup before overwriting a file
 set tags=tags;         " ctags
 
+
 let mapleader=","      " set the leader to be comma
 
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 " html-specific indentation
 autocmd Filetype matlab setlocal ts=2 sts=2 sw=2 " matlab-specific indentation
+autocmd Filetype python setlocal ts=4 sts=4 sw=4 " python-specific indentation
+
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
@@ -35,14 +38,13 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <leader>u :GundoToggle<CR>
 
 "############################
-"          Plugins             
+"          Plugins
 "############################
 " set the runtimepath to include vundle
 set runtimepath+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-eunuch'
 Plugin 'shime/vim-livedown'
@@ -52,31 +54,50 @@ Plugin 'chiphogg/vim-prototxt'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'severin-lemaignan/vim-minimap'
 "Plugin 'airblade/vim-gitgutter' useful for small files only
 call vundle#end()
 
 " turn on filetype-specific indentation (must be called after Vundle)
-filetype plugin indent on 
+filetype plugin indent on
+
+autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+autocmd FileType python set errorformat=%f:%l:\ %m
 
 "############################
-"         Syntastic         
+"         Syntastic          - dead (too slow)
 "############################
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_python_pylint_exec = '$HOME/local/anaconda/bin/pyflakes'
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_python_checkers = ['pyflakes']
+"let g:syntastic_python_pylint_exec = '$HOME/local/anaconda3/bin/pyflakes'
+"let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_python_pylint_exec = '$HOME/local/anaconda3/bin/pylint'
+
+
+let g:ctrlp_working_path_mode = '0'
+"############################
+"         ALE          - async replacement for syntastic
+"############################
+"
+let g:ale_lint_on_save = 1
+let g:ale_lint_delay = 200
+"let g:ale_linters = {'python': ['pylint']}
+let g:ale_linters = {'python': ['pyflakes', 'pylint'], 'MATLAB': ['mlint']}
 
 "############################
-"         Spell Check        
+"         Spell Check
 "############################
 "" turn on spell check for markdown files
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -84,7 +105,7 @@ set spellfile=~/.vim/spellfile.add
 set spelllang=en
 hi SpellBad ctermbg=224
 
-" local-remote copy and paste 
+" local-remote copy and paste
 vnoremap y y:call system("pbcopy", getreg("\""))<CR>
 "
 let g:vim_markdown_folding_disabled = 1
@@ -92,3 +113,13 @@ let g:vim_markdown_folding_disabled = 1
 " " Ignore filetypes (for ctrl-p)
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o
 
+" highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+:command Ipdb :normal i import ipdb ; ipdb.set_trace()<ESC>
+set autoindent
