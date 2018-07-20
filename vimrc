@@ -22,6 +22,7 @@ set clipboard=unnamed  " alias the anonymous register to * register
 set noswapfile         " do not use a swapfile for the buffer
 set nobackup           " do not make a backup before overwriting a file
 set tags=tags;         " ctags
+set nofoldenable       " disable folding
 
 
 let mapleader=","      " set the leader to be comma
@@ -93,8 +94,8 @@ let g:ctrlp_working_path_mode = '0'
 "
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 200
-"let g:ale_linters = {'python': ['pylint']}
-let g:ale_linters = {'python': ['pyflakes', 'pylint'], 'MATLAB': ['mlint']}
+let g:ale_linters = {'python': ['pyflakes']}
+"let g:ale_linters = {'python': ['pyflakes', 'pylint'], 'MATLAB': ['mlint']}
 
 "############################
 "         Spell Check
