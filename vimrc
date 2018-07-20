@@ -30,6 +30,7 @@ let mapleader=","      " set the leader to be comma
 autocmd Filetype html setlocal ts=2 sts=2 sw=2 " html-specific indentation
 autocmd Filetype matlab setlocal ts=2 sts=2 sw=2 " matlab-specific indentation
 autocmd Filetype python setlocal ts=4 sts=4 sw=4 " python-specific indentation
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 
 " turn off search highlight
@@ -97,6 +98,7 @@ let g:ale_lint_delay = 200
 let g:ale_linters = {'python': ['pyflakes']}
 "let g:ale_linters = {'python': ['pyflakes', 'pylint'], 'MATLAB': ['mlint']}
 
+
 "############################
 "         Spell Check
 "############################
@@ -114,6 +116,9 @@ let g:vim_markdown_folding_disabled = 1
 " " Ignore filetypes (for ctrl-p)
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o
 
+"Code-reading settings - minimal disruption - comment out the following
+"let g:ale_linters = {}
+
 " highlight trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -124,3 +129,7 @@ autocmd BufWinLeave * call clearmatches()
 
 :command Ipdb :normal i import ipdb ; ipdb.set_trace()<ESC>
 set autoindent
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
