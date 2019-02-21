@@ -22,7 +22,8 @@ set hlsearch           " highlight search matches
 set clipboard=unnamed  " alias the anonymous register to * register
 set noswapfile         " do not use a swapfile for the buffer
 set nobackup           " do not make a backup before overwriting a file
-set tags=tags          " ctags
+set tags=tags;         " ctags
+set nofoldenable       " disable folding
 
 
 let mapleader=","      " set the leader to be comma
