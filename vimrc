@@ -1,5 +1,6 @@
 syntax enable          " enable sytnax highlighting
 filetype off            " turn on filetype detection
+let g:gruvbox_guisp_fallback = "bg" " fix spelling highlight inversion
 colorscheme gruvbox    " use funky gruvbox colors
 set background=dark    " set the UI to a dark background
 set number             " show line numbers
@@ -56,8 +57,11 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'w0rp/ale'
+Plugin 'prabirshrestha/async.vim'
+"Plugin 'prabirshrestha/vim-lsp'
 "Plugin 'scrooloose/syntastic'
 "Plugin 'Valloric/YouCompleteMe'
+Plugin 'ryanolsonx/vim-lsp-python'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'severin-lemaignan/vim-minimap'
@@ -95,7 +99,8 @@ let g:ctrlp_working_path_mode = '0'
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 200
 "let g:ale_linters = {'python': ['pylint']}
-let g:ale_linters = {'python': ['pyflakes', 'pylint'], 'MATLAB': ['mlint']}
+"'pyflakes''flake8'
+let g:ale_linters = {'python': ['flake8', 'pylint', 'black', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
 
 
 "############################
@@ -132,3 +137,18 @@ set autoindent
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+
+map <Leader>p :call InsertLine()<CR>
+
+function! InsertLine()
+  let trace = expand("import ipdb; ipdb.set_trace()")
+  execute "normal o".trace
+endfunction
+
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
