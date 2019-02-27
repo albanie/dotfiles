@@ -101,7 +101,10 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 200
 "let g:ale_linters = {'python': ['pylint']}
 "'pyflakes''flake8'
-let g:ale_linters = {'python': ['flake8', 'pylint', 'black', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
+"let g:ale_linters = {'python': ['flake8', 'pylint', 'black', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
+let g:ale_linters = {'python': ['flake8', 'pylint', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
+" Set this in your vimrc file to disabling highlighting
+let g:ale_set_highlights = 0
 
 
 "############################
