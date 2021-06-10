@@ -1,5 +1,5 @@
 [style]
-column_limit = 88
+column_limit = 90
 based_on_style = pep8
 spaces_before_comment = 2
 join_multiple_lines = false
