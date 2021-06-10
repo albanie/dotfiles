@@ -4,7 +4,7 @@ let g:gruvbox_guisp_fallback = "bg" " fix spelling highlight inversion
 colorscheme gruvbox    " use funky gruvbox colors
 set background=dark    " set the UI to a dark background
 set number             " show line numbers
-set colorcolumn=80     " draw a divider at the 80th column
+set colorcolumn=88     " draw a divider at the 80th column
 set showcmd            " show command in bottom bar
 set cursorline         " highlight current line
 set wildmenu           " visual autocomplete for menu command
@@ -32,6 +32,7 @@ autocmd Filetype html setlocal ts=2 sts=2 sw=2 " html-specific indentation
 autocmd Filetype matlab setlocal ts=2 sts=2 sw=2 " matlab-specific indentation
 autocmd Filetype python setlocal ts=4 sts=4 sw=4 " python-specific indentation
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 
 
 " turn off search highlight
@@ -69,28 +70,14 @@ Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'airblade/vim-gitgutter' useful for small files only
 call vundle#end()
 
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 0
+
 " turn on filetype-specific indentation (must be called after Vundle)
 filetype plugin indent on
 
 autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
 autocmd FileType python set errorformat=%f:%l:\ %m
-
-"############################
-"         Syntastic          - dead (too slow)
-"############################
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_python_checkers = ['pyflakes']
-"let g:syntastic_python_pylint_exec = '$HOME/local/anaconda3/bin/pyflakes'
-"let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_python_pylint_exec = '$HOME/local/anaconda3/bin/pylint'
-
 
 let g:ctrlp_working_path_mode = '0'
 "############################
@@ -102,9 +89,11 @@ let g:ale_lint_delay = 200
 "let g:ale_linters = {'python': ['pylint']}
 "'pyflakes''flake8'
 "let g:ale_linters = {'python': ['flake8', 'pylint', 'black', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
-let g:ale_linters = {'python': ['flake8', 'pylint', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
-" Set this in your vimrc file to disabling highlighting
+"let g:ale_linters = {'python': ['flake8', 'pylint', 'black', 'pyls', 'vulture'], 'MATLAB': ['mlint']}
+let g:ale_linters = {'python': ['flake8', 'pylint', 'vulture', 'pycodestyle'], 'MATLAB': ['mlint']}
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_set_highlights = 0
+highlight ALEWarning ctermbg=DarkMagenta
 
 
 "############################
@@ -149,10 +138,10 @@ function! InsertLine()
   execute "normal o".trace
 endfunction
 
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+"if executable('pyls')
+"    au User lsp_setup call lsp#register_server({
+"        \ 'name': 'pyls',
+"        \ 'cmd': {server_info->['pyls']},
+"        \ 'whitelist': ['python'],
+"        \ })
+"endif
