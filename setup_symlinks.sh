@@ -5,4 +5,6 @@ ln -nfs "${PWD}/pylintrc" ~/.pylintrc
 ln -nfs "${PWD}/inputrc" ~/.inputrc
 ln -nfs "${PWD}/vimrc" ~/.vimrc
 ln -nfs "${PWD}/dircolors.ansi-dark" ~/.dircolors
+mkdir -p ~/.config/yabai
+ln -nfs "${PWD}/yabairc" ~/.config/yabai/yabairc
 
