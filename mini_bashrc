@@ -1,0 +1,17 @@
+# nice prompt
+export PS1="\[\033[38;5;209m\]\u\[$(tput sgr0)\]\[\033[38;5;78m\]@\[$(tput sgr0)\]\[\033[38;5;228m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;87m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]\[\033[38;5;208m\]>\[$(tput sgr0)\]\[\033[38;5;11m\]>\[$(tput sgr0)\]\[\033[38;5;10m\]>\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
+
+alias u="cd .."
+alias uu="cd ../.."
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()' -- "
+
+# See discussion here: https://docs.python.org/3/library/stdtypes.html#integer-string-conversion-length-limitation
+# This is a workaround to avoid REPL breaks in recent python, unless output is crazy big (in which case it's prob best to avoid the hang)
+PYTHONINTMAXSTRDIGITS=10000
+
+if [[ $- == *i* ]]
+then
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+fi
+export TERM="screen-256color"
