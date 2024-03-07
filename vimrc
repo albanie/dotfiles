@@ -60,14 +60,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'w0rp/ale'
 Plugin 'prabirshrestha/async.vim'
-"Plugin 'prabirshrestha/vim-lsp'
-"Plugin 'scrooloose/syntastic'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'ryanolsonx/vim-lsp-python'
-
 Plugin 'ctrlpvim/ctrlp.vim'
-"Plugin 'severin-lemaignan/vim-minimap'
-"Plugin 'airblade/vim-gitgutter' useful for small files only
 call vundle#end()
 
 let g:NERDDefaultAlign = 'left'
