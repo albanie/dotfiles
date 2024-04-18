@@ -99,7 +99,8 @@ set spelllang=en
 hi SpellBad ctermbg=224
 
 " local-remote copy and paste
-vnoremap y y:call system("pbcopy", getreg("\""))<CR>
+vnoremap y y:call system('xclip -selection clipboard', @")<CR>
+
 "
 let g:vim_markdown_folding_disabled = 1
 "
